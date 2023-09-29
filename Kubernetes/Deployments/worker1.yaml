@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      node: worker1
+  template:
+    metadata:
+      labels:
+        node: worker1
+    spec:
+      containers:
+        - name: worker1
+          image: worker:kube
+          envFrom:
+          - configMapRef:
+              name: worker1
+          - configMapRef:
+              name: distributed-model
+      

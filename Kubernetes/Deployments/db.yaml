@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      node: db
+  template:
+    metadata:
+      labels:
+        node: db
+    spec:
+      containers:
+        - name: mongo
+          image: mongodb:kube
+          volumeMounts:
+          - mountPath: /data/db
+            name: model-volume
+      volumes:
+      - name: model-volume
+        persistentVolumeClaim:
+          claimName: db

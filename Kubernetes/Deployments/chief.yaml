@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chief
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: serving
+      node: chief
+  template:
+    metadata:
+      labels:
+        api: serving
+        node: chief
+    spec:
+      containers:
+        - name: chief
+          image: worker:kube
+          envFrom:
+          - configMapRef:
+              name: chief
+          - configMapRef:
+              name: distributed-model
+          volumeMounts:
+            - mountPath: /data
+              name: model-volume
+        - image: tensorflow/serving:latest
+          name: serving
+          volumeMounts:
+          - mountPath: /models
+            name: model-volume
+      volumes:
+      - name: model-volume
+        persistentVolumeClaim:
+          claimName: chief-pvc

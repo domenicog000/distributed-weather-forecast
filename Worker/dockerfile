@@ -1,0 +1,7 @@
+FROM tensorflow/tensorflow:2.11.0
+RUN mkdir /Worker
+WORKDIR /Worker
+ADD data_pipeline.py model_utility.py worker.py requirements /Worker/
+RUN pip install -r requirements
+
+CMD ["tail", "-f", "/dev/null"]

@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  TF_CONFIG: '{"cluster": {"worker": ["chief:8080", "worker1:8081"]}, "task": {"type":
+    "worker", "index": 1}}'
+kind: ConfigMap
+metadata:
+  name: worker1

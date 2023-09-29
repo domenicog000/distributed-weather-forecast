@@ -1,0 +1,11 @@
+FROM mongo:latest
+
+RUN mkdir /Dataset
+WORKDIR /Dataset
+ADD data.csv load_data.py requirements /Dataset/
+
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip install -r requirements
+
+VOLUME "mongo:/data/db"
+EXPOSE 27017

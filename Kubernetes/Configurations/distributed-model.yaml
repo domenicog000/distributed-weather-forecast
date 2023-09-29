@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: distributed-model
+data:
+  BASE_WINDOW_SIZE: '144'
+  SHIFT: '16'
+  PER_WORKER_BATCH_SIZE: '32'
